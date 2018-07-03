@@ -1,22 +1,20 @@
 /*	Copyright (c) 2013, Robert Wang, email: robertwgh (at) gmail.com
-	All rights reserved. https://sourceforge.net/p/ezsift
+	All rights reserved. https://github.com/robertwgh/ezSIFT
 
 	Description: Detect keypoints and extract descriptors from an input image.
 
 	Revision history:
-		September, 15, 2013: initial version.
+		September 15th, 2013: initial version.
+        July 2nd, 2018: code refactor.
 */
-
-#include <iostream>
-#include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
 
 #include "ezsift.h"
 
+#include <iostream>
+#include <list>
+
 #define USE_FIX_FILENAME	0
-int main(int argc, char ** argv)
+int main(int argc, char * argv[])
 {
 
 #if USE_FIX_FILENAME
@@ -24,8 +22,7 @@ int main(int argc, char ** argv)
 #else
 	if (argc != 2)
 	{
-		printf("Please input an input image name.\n");
-		printf("usage: feature_extract img\n");
+        std::cerr << "Please input an input image name.\nUsage: feature_extract img" << std::endl;
 		return -1;
 	}
 	char file1[255];
@@ -36,10 +33,10 @@ int main(int argc, char ** argv)
 	ImageObj<unsigned char> image;	
 	if(read_pgm(file1, image.data, image.w, image.h)!=0)
 	{
-		printf("Failed to open input image!\n");
+        std::cerr << "Failed to open input image." << std::endl;
 		return -1;
 	}
-	printf("image size: %d x %d\n", image.w, image.h);
+    std::cout << "Image size: " << image.w << "x" << image.h << std::endl;
 
 	bool bExtractDescriptor = true;
 	std::list<SiftKeypoint> kpt_list;
@@ -48,20 +45,19 @@ int main(int argc, char ** argv)
 	double_original_image(true);
 
 	// Perform SIFT computation on CPU.
-	printf("Start SIFT detection ...\n");
+    std::cout << "Start SIFT detection ..." << std::endl;
 	sift_cpu(image, kpt_list, bExtractDescriptor);
 
 	// Generate output image with keypoints drawing
 	char filename[255];
-	sprintf(filename, "%s_psift_output.ppm", file1);
+	sprintf(filename, "%_sift_output.ppm", file1);
 	draw_keypoints_to_ppm_file(filename, image, kpt_list);
 
 	// Generate keypoints list
-	sprintf(filename, "%s_psift_key.key", file1);
+	sprintf(filename, "%_sift_key.key", file1);
 	export_kpt_list_to_file(filename, kpt_list, bExtractDescriptor);
 
-	printf("\n");
-	printf("Total keypoints number: \t\t %d\n", kpt_list.size());
+	std::cout << "\nTotal keypoints number: \t\t" << static_cast<unsigned int>(kpt_list.size()) << std::endl;
 
 	return 0;
 }
