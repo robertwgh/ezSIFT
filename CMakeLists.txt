@@ -32,15 +32,6 @@ include_directories(
 
 target_include_directories(${EZSIFT} PUBLIC ${EZSIFT_SRC_DIR})
 
-set(LINK_LIBRARIES
-    ${OpenCV_LIBS}
-    ${LIBDNN_LIBRARIES}
-    ${FOUNDATION_FRAMEWORK}
-    ${PROTOBUF_LIBRARIES}
-    pthread
-    )
-target_link_libraries(${EZSIFT} PRIVATE ${LINK_LIBRARIES})
-
 if(EZSIFT_BUILD_EXAMPLES)
   add_subdirectory(examples)
 endif()

@@ -1,0 +1,1 @@
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++    -std=c++14 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/image_match.dir/image_match.cpp.o  -o ../../bin/image_match  ../../lib/libezsift.a 
