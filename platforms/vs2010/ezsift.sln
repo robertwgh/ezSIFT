@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libezsift", "libezsift\libezsift.vcxproj", "{0EBAAB47-601C-4858-8610-AD4F5810AC87}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "feature_extract", "feature_extract\feature_extract.vcxproj", "{64AFC6E9-D7C9-4475-BAD4-0A5F6AB2071F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0EBAAB47-601C-4858-8610-AD4F5810AC87} = {0EBAAB47-601C-4858-8610-AD4F5810AC87}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "image_match", "image_match\image_match.vcxproj", "{18154FCC-C31D-4C3D-B8DE-FFC25F44A842}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0EBAAB47-601C-4858-8610-AD4F5810AC87} = {0EBAAB47-601C-4858-8610-AD4F5810AC87}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{84A1688E-5210-4861-8151-05DDCA7846D6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0EBAAB47-601C-4858-8610-AD4F5810AC87}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0EBAAB47-601C-4858-8610-AD4F5810AC87}.Debug|Win32.Build.0 = Debug|Win32
+		{0EBAAB47-601C-4858-8610-AD4F5810AC87}.Release|Win32.ActiveCfg = Release|Win32
+		{0EBAAB47-601C-4858-8610-AD4F5810AC87}.Release|Win32.Build.0 = Release|Win32
+		{64AFC6E9-D7C9-4475-BAD4-0A5F6AB2071F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{64AFC6E9-D7C9-4475-BAD4-0A5F6AB2071F}.Debug|Win32.Build.0 = Debug|Win32
+		{64AFC6E9-D7C9-4475-BAD4-0A5F6AB2071F}.Release|Win32.ActiveCfg = Release|Win32
+		{64AFC6E9-D7C9-4475-BAD4-0A5F6AB2071F}.Release|Win32.Build.0 = Release|Win32
+		{18154FCC-C31D-4C3D-B8DE-FFC25F44A842}.Debug|Win32.ActiveCfg = Debug|Win32
+		{18154FCC-C31D-4C3D-B8DE-FFC25F44A842}.Debug|Win32.Build.0 = Debug|Win32
+		{18154FCC-C31D-4C3D-B8DE-FFC25F44A842}.Release|Win32.ActiveCfg = Release|Win32
+		{18154FCC-C31D-4C3D-B8DE-FFC25F44A842}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{64AFC6E9-D7C9-4475-BAD4-0A5F6AB2071F} = {84A1688E-5210-4861-8151-05DDCA7846D6}
+		{18154FCC-C31D-4C3D-B8DE-FFC25F44A842} = {84A1688E-5210-4861-8151-05DDCA7846D6}
+	EndGlobalSection
+EndGlobal
