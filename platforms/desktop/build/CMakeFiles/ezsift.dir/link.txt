@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc lib/libezsift.a  CMakeFiles/ezsift.dir/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/src/ezsift.cpp.o CMakeFiles/ezsift.dir/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/src/image_utility.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib lib/libezsift.a
