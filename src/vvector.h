@@ -1056,10 +1056,6 @@ extern "C" {
 {                                                                         \
         double mlen;                                                           \
                                                                                \
-        /* do nothing if off-diagonals are zero and diagonals are    \ \ equal \
-         * \                                                                   \
-         * \ \                                                                             \
-         */                                                                    \
         if ((m[0][1] != 0.0) || (m[1][0] != 0.0) || (m[0][0] != m[1][1])) {    \
             p[0] = m[1][1] * v[0] - m[1][0] * v[1];                            \
             p[1] = -m[0][1] * v[0] + m[0][0] * v[1];                           \
