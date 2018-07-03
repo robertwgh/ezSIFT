@@ -31,12 +31,9 @@
 #include "image.h"
 
 #include <iostream>
-#include <vector>
 #include <list>
 #include <cmath>
-#include <stdio.h>
-
-using namespace std;
+#include <cstdio>
 
 namespace ezsift {
 
@@ -606,7 +603,7 @@ int detect_keypoints(
     std::vector< Image<float> > & rotPyr, 
     int nOctaves, 
     int nDogLayers, 
-    list<SiftKeypoint> & kpt_list)
+                     std::list<SiftKeypoint> & kpt_list)
 {
     float * currData;
     float * lowData;
@@ -810,7 +807,7 @@ bool refine_local_extrema(std::vector< Image<float> > & dogPyr,
         // but using separate ones, we can check det==0 easily.
         float tmp;                  
         DETERMINANT_3X3 (det, H); 
-        if (fabsf(det) < (numeric_limits<float>::min)())
+        if (fabsf(det) < (std::numeric_limits<float>::min)())
             break;
         tmp = 1.0f / (det);           
         //INVERT_3X3(Hinvert, det, H); 
@@ -918,7 +915,7 @@ int extract_descriptor(
 
     float exp_scale = -2.0f / (nSubregion * nSubregion);  // -1/(2* nSubregion/2 * nSubregion/2)
 
-    for (list<SiftKeypoint>::iterator kpt = kpt_list.begin(); kpt != kpt_list.end(); kpt ++)
+    for (std::list<SiftKeypoint>::iterator kpt = kpt_list.begin(); kpt != kpt_list.end(); kpt ++)
     {
         // Keypoint information
         int octave = kpt->octave;
@@ -1116,7 +1113,7 @@ int extract_descriptor(
         // Cut off the numbers bigger than 0.2 after normalized.
         for (int i = 0; i < nBins; i ++)
         {
-            tmp = min(thr, dstBins[i]);
+            tmp = fmin(thr, dstBins[i]);
             dstBins[i] = tmp;
             sum_square += tmp * tmp;
         }
@@ -1156,7 +1153,7 @@ int sift_cpu(
     // Number of DoG images in one octave.
     int nDogLayers = nLayers + 2;
     // Number of octaves according to the size of image. 
-    int nOctaves = (int) my_log2((float)min(image.w, image.h)) - 3 - firstOctave; // 2 or 3, need further research
+    int nOctaves = (int) my_log2((float)fmin(image.w, image.h)) - 3 - firstOctave; // 2 or 3, need further research
 
     // Build image octaves
     std::vector< Image<unsigned char> > octaves(nOctaves);
@@ -1295,8 +1292,8 @@ int match_keypoints(std::list<SiftKeypoint> & kpt_list1,
         int c1 = (int) kpt1->c;
 
         float * descr1 = kpt1->descriptors;
-        float score1 = (numeric_limits<float>::max)(); // highest score
-        float score2 = (numeric_limits<float>::max)(); // 2nd highest score
+        float score1 = (std::numeric_limits<float>::max)(); // highest score
+        float score2 = (std::numeric_limits<float>::max)(); // 2nd highest score
 
         // Position of the matched feature.
         int r2, c2;
@@ -1342,7 +1339,7 @@ int match_keypoints(std::list<SiftKeypoint> & kpt_list1,
     match_list.unique(same_match_pair);
 
 #if PRINT_MATCH_KEYPOINTS
-    list<MatchPair>::iterator p;
+    std::list<MatchPair>::iterator p;
     int match_idx = 0;
     for (p = match_list.begin(); p != match_list.end(); p ++)
     {

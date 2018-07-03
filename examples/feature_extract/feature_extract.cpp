@@ -46,16 +46,16 @@ int main(int argc, char * argv[])
 
     // Perform SIFT computation on CPU.
     std::cout << "Start SIFT detection ..." << std::endl;
-    sift_cpu(image, kpt_list, bExtractDescriptor);
+    ezsift::sift_cpu(image, kpt_list, bExtractDescriptor);
 
     // Generate output image with keypoints drawing
     char filename[255];
     sprintf(filename, "%s_sift_output.ppm", file1);
-    draw_keypoints_to_ppm_file(filename, image, kpt_list);
+    ezsift::draw_keypoints_to_ppm_file(filename, image, kpt_list);
 
     // Generate keypoints list
     sprintf(filename, "%s_sift_key.key", file1);
-    export_kpt_list_to_file(filename, kpt_list, bExtractDescriptor);
+    ezsift::export_kpt_list_to_file(filename, kpt_list, bExtractDescriptor);
 
     std::cout << "\nTotal keypoints number: \t\t" << static_cast<unsigned int>(kpt_list.size()) << std::endl;
 

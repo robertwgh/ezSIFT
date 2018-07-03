@@ -61,19 +61,19 @@ int main(int argc, char * argv[])
     std::cout << "# keypoints in image 1: " << static_cast<unsigned int>(kpt_list1.size()) << std::endl;
     
     std::cout << "\nSIFT detection on image 2 ..." << std::endl;
-    sift_cpu(image2, kpt_list2, true);
+    ezsift::sift_cpu(image2, kpt_list2, true);
     std::cout << "# keypoints in image2: " << static_cast<unsigned int>(kpt_list2.size()) << std::endl;
 
     // Save keypoint list, and draw keypoints on images.
-    draw_keypoints_to_ppm_file("sift_keypoints_a.ppm", image1, kpt_list1);
-    export_kpt_list_to_file("sift_keypoints_a.key", kpt_list1, true);
+    ezsift::draw_keypoints_to_ppm_file("sift_keypoints_a.ppm", image1, kpt_list1);
+    ezsift::export_kpt_list_to_file("sift_keypoints_a.key", kpt_list1, true);
 
-    draw_keypoints_to_ppm_file("sift_keypoints_b.ppm", image2, kpt_list2);
-    export_kpt_list_to_file("sift_keypoints_b.key", kpt_list2, true);
+    ezsift::draw_keypoints_to_ppm_file("sift_keypoints_b.ppm", image2, kpt_list2);
+    ezsift::export_kpt_list_to_file("sift_keypoints_b.key", kpt_list2, true);
 
     // Match keypoints.
     std::list<ezsift::MatchPair> match_list;
-    match_keypoints(kpt_list1, kpt_list2, match_list);
+    ezsift::match_keypoints(kpt_list1, kpt_list2, match_list);
 
     // Draw result image.
     ezsift::draw_match_lines_to_ppm_file("sift_matching_a_b.ppm", image1, image2, match_list);

@@ -11,9 +11,9 @@
 
 #include "image_utility.h"
 
-#include <stdio.h>
-#include <assert.h>
-#include <math.h>
+#include <cstdio>
+#include <cassert>
+#include <cmath>
 #include <string>
 #include <ctype.h>
 
