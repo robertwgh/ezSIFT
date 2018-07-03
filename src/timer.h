@@ -8,10 +8,12 @@
         July 2nd, 2018: code refactor.
 */
 
-#ifndef _TIMER_H_
-#define _TIMER_H_
+#ifndef TIMER_H
+#define TIMER_H
 
 #include <time.h>
+
+namespace ezsift {
 
 #ifdef _WIN32
 #include <windows.h>
@@ -24,7 +26,6 @@ struct timeval {
 #else//_WIN32
 #include <sys/time.h>
 #endif//_WIN32
-
 
 template <typename timer_dt> 
 class Timer
@@ -134,5 +135,6 @@ timer_dt Timer<timer_dt>::stop_get_start()
     return interval;
 }
 
+} // end namespace ezsift
 
-#endif//_TIMER_H_
+#endif //TIMER_H

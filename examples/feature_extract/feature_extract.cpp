@@ -30,8 +30,8 @@ int main(int argc, char * argv[])
     file1[strlen(argv[1])] = 0;
 #endif
 
-    ImageObj<unsigned char> image;  
-    if(read_pgm(file1, image.data, image.w, image.h)!=0)
+    ezsift::Image<unsigned char> image;
+    if(ezsift::read_pgm(file1, image.data, image.w, image.h)!=0)
     {
         std::cerr << "Failed to open input image." << std::endl;
         return -1;
@@ -39,10 +39,10 @@ int main(int argc, char * argv[])
     std::cout << "Image size: " << image.w << "x" << image.h << std::endl;
 
     bool bExtractDescriptor = true;
-    std::list<SiftKeypoint> kpt_list;
+    std::list<ezsift::SiftKeypoint> kpt_list;
 
     // Double the original image as the first octive.
-    double_original_image(true);
+    ezsift::double_original_image(true);
 
     // Perform SIFT computation on CPU.
     std::cout << "Start SIFT detection ..." << std::endl;

@@ -14,8 +14,10 @@
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>
-#include <string.h>
+#include <string>
 #include <ctype.h>
+
+namespace ezsift {
 
 int read_pgm(const char * filename, unsigned char * & data, int & w, int & h)
 {
@@ -121,7 +123,7 @@ void write_float_pgm(const char* filename, float* data, int w, int h, int mode)
     free(charImg);
 }// write_float_pgm()
 
-void setPixelRed(PPM_IMG* img, int r, int c) {
+void setPixelRed(ImagePPM* img, int r, int c) {
         if( (r >= 0) && (r < img->h) && (c >= 0) && (c < img->w)){
             img->img_r[r*img->w + c] = 0;
             img->img_g[r*img->w + c] = 0;
@@ -129,7 +131,7 @@ void setPixelRed(PPM_IMG* img, int r, int c) {
         }
 }// setPixelRed()
 
-void draw_red_circle(PPM_IMG* imgPPM, int r, int c, int cR){
+void draw_red_circle(ImagePPM* imgPPM, int r, int c, int cR){
         int cx = -cR, cy = 0, err = 2-2*cR; /* II. Quadrant */
         do {
             setPixelRed(imgPPM, r-cx, c+cy); /*   I. Quadrant */
@@ -145,7 +147,7 @@ void draw_red_circle(PPM_IMG* imgPPM, int r, int c, int cR){
 }// draw_red_circle()
 
 
-void draw_circle(PPM_IMG* imgPPM, int r, int c, int cR, float thickness)
+void draw_circle(ImagePPM* imgPPM, int r, int c, int cR, float thickness)
 {
     int x,y;
     float f = thickness;
@@ -160,7 +162,7 @@ void draw_circle(PPM_IMG* imgPPM, int r, int c, int cR, float thickness)
 }
 
 //http://en.wikipedia.org/wiki/Midpoint_circle_algorithm
-void rasterCircle(PPM_IMG* imgPPM, int r, int c, int radius)
+void rasterCircle(ImagePPM* imgPPM, int r, int c, int radius)
 {
     int f = 1 - radius;
     int ddF_x = 1;
@@ -202,7 +204,7 @@ void rasterCircle(PPM_IMG* imgPPM, int r, int c, int radius)
 }
 
 
-void draw_red_orientation(PPM_IMG* imgPPM, int x, int y, float ori, int cR) 
+void draw_red_orientation(ImagePPM* imgPPM, int x, int y, float ori, int cR)
 {
     int xe = (int) (x + cos(ori)*cR), ye = (int) (y + sin(ori)*cR);
     // Bresenham's line algorithm
@@ -277,10 +279,6 @@ int read_ppm(const char* filename, unsigned char*& data, int& w, int& h)
     {
         data = new unsigned char[3 * width * height];
     }
-    else 
-    {
-        //printf("Reading %d bytes into existing pointer\n", 3*width*height);
-    }
 
     size_t res = fread(data, sizeof(unsigned char), 3 * width * height, fp);
     assert((int)res == 3 * width * height);
@@ -299,7 +297,7 @@ void write_ppm(const char* filename, unsigned char* data, int w, int h)
         printf("Cannot write to file %s\n", filename);
         return;
     }
-    //printf("Saving %s...", aFilename);
+
     /* Write header */
     fprintf(fp, "P6\n");
     fprintf(fp, "%d %d\n", w, h);
@@ -307,7 +305,6 @@ void write_ppm(const char* filename, unsigned char* data, int w, int h)
 
     fwrite(data, sizeof(unsigned char), w*h*3, fp);
     fclose(fp);
-    //printf("Done.\n");
 }
 
 
@@ -330,3 +327,5 @@ void write_rgb2ppm(const char * filename, unsigned char* r, unsigned char* g, un
         fclose(out_file);
         free(obuf);
 }// write_ppm()
+
+} // end namespace ezsift

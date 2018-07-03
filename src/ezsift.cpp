@@ -38,6 +38,8 @@
 
 using namespace std;
 
+namespace ezsift {
+
 // Init sift parameters
 void init_sift_parameters(
     bool doubleFirstOctave,
@@ -63,8 +65,8 @@ void double_original_image(bool doubleFirstOctave)
 
 // Compute octaves to build Gaussian Pyramid.
 int build_octaves(
-    const ImageObj<unsigned char> &image, 
-    std::vector< ImageObj<unsigned char> > & octaves, 
+    const Image<unsigned char> &image, 
+    std::vector< Image<unsigned char> > & octaves, 
     int firstOctave, 
     int nOctaves)
 {
@@ -97,15 +99,15 @@ int build_octaves(
 
 // Improved Gaussian Blurring Function
 int gaussian_blur(
-    const ImageObj<float> & in_image, 
-    ImageObj<float> & out_image, 
+    const Image<float> & in_image, 
+    Image<float> & out_image, 
     std::vector<float> coef1d)
 {
     int w = in_image.w;
     int h = in_image.h;
     int gR = coef1d.size() / 2;
 
-    ImageObj<float> img_t(h, w);
+    Image<float> img_t(h, w);
     row_filter_transpose(in_image.data, img_t.data, w, h, &coef1d[0], gR);
     row_filter_transpose(img_t.data, out_image.data, h, w, &coef1d[0], gR);
 
@@ -169,8 +171,8 @@ int row_filter_transpose(
 // The first layer is downsampled from last octave, layer=nLayers.
 // All n-th layer is Gaussian blur from (n-1)-th layer. 
 int build_gaussian_pyramid(
-    std::vector< ImageObj<unsigned char> > & octaves,
-    std::vector< ImageObj<float> > & gpyr, 
+    std::vector< Image<unsigned char> > & octaves,
+    std::vector< Image<float> > & gpyr, 
     int nOctaves, 
     int nGpyrLayers)
 {
@@ -251,8 +253,8 @@ std::vector< std::vector<float> > compute_gaussian_coefs(
 
 // Build difference of Gaussian pyramids.
 int build_dog_pyr(
-    std::vector< ImageObj<float> > & gpyr, 
-    std::vector< ImageObj<float> > & dogPyr, 
+    std::vector< Image<float> > & gpyr, 
+    std::vector< Image<float> > & dogPyr, 
     int nOctaves, 
     int nDogLayers)
 {
@@ -289,9 +291,9 @@ int build_dog_pyr(
 
 // Build gradient pyramids.
 int build_grd_rot_pyr(
-    std::vector<ImageObj<float> > & gpyr, 
-    std::vector<ImageObj<float> > & grdPyr, 
-    std::vector<ImageObj<float> > & rotPyr, 
+    std::vector<Image<float> > & gpyr, 
+    std::vector<Image<float> > & grdPyr, 
+    std::vector<Image<float> > & rotPyr, 
     int nOctaves, 
     int nLayers)
 {
@@ -347,7 +349,7 @@ int build_grd_rot_pyr(
 // Compute orientation histogram for keypoint detection.
 // Gradient information is computed in this function.
 float compute_orientation_hist(
-    const ImageObj<float> & image,              
+    const Image<float> & image,              
     SiftKeypoint & kpt,             
     float * & hist)
 {
@@ -468,8 +470,8 @@ float compute_orientation_hist(
 // Compute orientation histogram for keypoint detection.
 // using pre-computed gradient information.
 float compute_orientation_hist_with_gradient(
-    const ImageObj<float> & grdImage, 
-    const ImageObj<float> & rotImage, 
+    const Image<float> & grdImage, 
+    const Image<float> & rotImage, 
     SiftKeypoint & kpt,
     float * & hist)
 {
@@ -599,9 +601,9 @@ float compute_orientation_hist_with_gradient(
 
 // Keypoint detection.
 int detect_keypoints(
-    std::vector< ImageObj<float> > & dogPyr, 
-    std::vector< ImageObj<float> > & grdPyr, 
-    std::vector< ImageObj<float> > & rotPyr, 
+    std::vector< Image<float> > & dogPyr, 
+    std::vector< Image<float> > & grdPyr, 
+    std::vector< Image<float> > & rotPyr, 
     int nOctaves, 
     int nDogLayers, 
     list<SiftKeypoint> & kpt_list)
@@ -735,7 +737,7 @@ int detect_keypoints(
 }
 
 // Refine local keypoint extrema.
-bool refine_local_extrema(std::vector< ImageObj<float> > & dogPyr, 
+bool refine_local_extrema(std::vector< Image<float> > & dogPyr, 
     int nOctaves, 
     int nDogLayers, 
     SiftKeypoint & kpt)
@@ -885,8 +887,8 @@ bool refine_local_extrema(std::vector< ImageObj<float> > & dogPyr,
 // Extract descriptor
 // 1. Unroll the tri-linear part.
 int extract_descriptor(
-    std::vector< ImageObj<float> > & grdPyr, 
-    std::vector< ImageObj<float> > & rotPyr, 
+    std::vector< Image<float> > & grdPyr, 
+    std::vector< Image<float> > & rotPyr, 
     int nOctaves,
     int nGpyrLayers,
     std::list<SiftKeypoint> & kpt_list)
@@ -1141,7 +1143,7 @@ int extract_descriptor(
 }
 
 int sift_cpu(
-    const ImageObj<unsigned char> &image, 
+    const Image<unsigned char> &image, 
     std::list<SiftKeypoint> & kpt_list, 
     bool bExtractDescriptors)
 {
@@ -1157,7 +1159,7 @@ int sift_cpu(
     int nOctaves = (int) my_log2((float)min(image.w, image.h)) - 3 - firstOctave; // 2 or 3, need further research
 
     // Build image octaves
-    std::vector< ImageObj<unsigned char> > octaves(nOctaves);
+    std::vector< Image<unsigned char> > octaves(nOctaves);
     build_octaves(image, octaves, firstOctave, nOctaves);
 
 #if (DUMP_OCTAVE_IMAGE == 1)
@@ -1170,7 +1172,7 @@ int sift_cpu(
 #endif
 
     // Build Gaussian pyramid
-    std::vector< ImageObj<float> > gpyr(nOctaves * nGpyrLayers);
+    std::vector< Image<float> > gpyr(nOctaves * nGpyrLayers);
     build_gaussian_pyramid(octaves, gpyr, nOctaves, nGpyrLayers);
 
 #if (DUMP_GAUSSIAN_PYRAMID_IMAGE == 1)
@@ -1186,12 +1188,12 @@ int sift_cpu(
 #endif
 
     // Build DoG pyramid
-    std::vector< ImageObj<float> > dogPyr(nOctaves * nDogLayers);
+    std::vector< Image<float> > dogPyr(nOctaves * nDogLayers);
     build_dog_pyr(gpyr, dogPyr, nOctaves, nDogLayers);
 
 #if (DUMP_DOG_IMAGE == 1)
     char fdog[256];
-    ImageObj<unsigned char> img_dog_t;
+    Image<unsigned char> img_dog_t;
     for (int i=0; i<nOctaves; i ++)
     {
         for (int j = 0; j < nDogLayers; j ++)
@@ -1204,8 +1206,8 @@ int sift_cpu(
 #endif
 
     // Build gradient and rotation pyramids
-    std::vector< ImageObj<float> > grdPyr(nOctaves * nGpyrLayers);
-    std::vector< ImageObj<float> > rotPyr(nOctaves * nGpyrLayers);
+    std::vector< Image<float> > grdPyr(nOctaves * nGpyrLayers);
+    std::vector< Image<float> > rotPyr(nOctaves * nGpyrLayers);
     build_grd_rot_pyr(gpyr, grdPyr, rotPyr, nOctaves, nLayers);
 
     // Detect keypoints
@@ -1225,9 +1227,9 @@ int sift_cpu(
 
 // Combine two images horizontally
 int combine_image(
-    ImageObj<unsigned char> & out_image,
-    const ImageObj<unsigned char> & image1,
-    const ImageObj<unsigned char> & image2)
+    Image<unsigned char> & out_image,
+    const Image<unsigned char> & image1,
+    const Image<unsigned char> & image2)
 {
     int w1 = image1.w;
     int h1 = image1.h;
@@ -1354,11 +1356,11 @@ int match_keypoints(std::list<SiftKeypoint> & kpt_list1,
 
 void  draw_keypoints_to_ppm_file(
     const char* out_filename,
-    const ImageObj<unsigned char> & image, 
+    const Image<unsigned char> & image, 
     std::list<SiftKeypoint> kpt_list)
 {
     std::list<SiftKeypoint>::iterator it;
-    PPM_IMG imgPPM;
+    ImagePPM imgPPM;
     int w = image.w;
     int h = image.h;
     int r, c;
@@ -1453,7 +1455,7 @@ int export_kpt_list_to_file(
 // Draw a while line on a gray-scale image. 
 // MatchPair mp indicates the coordinates of the start point
 // and the end point.
-int draw_line_to_image(ImageObj<unsigned char> & image, 
+int draw_line_to_image(Image<unsigned char> & image, 
     MatchPair & mp)
 {
     int w = image.w;
@@ -1502,11 +1504,11 @@ int draw_line_to_rgb_image(
 
 // Draw match lines between matched keypoints between two images.
 int draw_match_lines_to_ppm_file(const char * filename,
-    ImageObj<unsigned char> & image1,
-    ImageObj<unsigned char> & image2,
+    Image<unsigned char> & image1,
+    Image<unsigned char> & image2,
     std::list<MatchPair> & match_list)
 {
-    ImageObj<unsigned char> tmpImage;
+    Image<unsigned char> tmpImage;
     combine_image(tmpImage, image1, image2);
 
     int w = tmpImage.w;
@@ -1535,3 +1537,5 @@ int draw_match_lines_to_ppm_file(const char * filename,
     delete [] dstData;
     return 0;
 }
+
+} // end namespace ezsift
