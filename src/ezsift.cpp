@@ -356,8 +356,6 @@ float compute_orientation_hist(
 	float * & hist)
 {
 	int nBins = SIFT_ORI_HIST_BINS;
-	int octave = kpt.octave;
-	int layer = kpt.layer;
 
 	float kptr = kpt.ri;
 	float kptc = kpt.ci;
@@ -370,7 +368,6 @@ float compute_orientation_hist(
 
 	float sigma = SIFT_ORI_SIG_FCTR * kpt_scale;
 	int win_radius = (int) (SIFT_ORI_RADIUS * kpt_scale);
-	int win_width = win_radius * 2 + 1;
 
 	float * data = image.data;
 	int w = image.w;
@@ -481,8 +478,6 @@ float compute_orientation_hist_with_gradient(
 	float * & hist)
 {
 	int nBins = SIFT_ORI_HIST_BINS;
-	int octave = kpt.octave;
-	int layer = kpt.layer;
 
 	float kptr = kpt.ri;
 	float kptc = kpt.ci;
@@ -495,7 +490,6 @@ float compute_orientation_hist_with_gradient(
 
 	float sigma = SIFT_ORI_SIG_FCTR * kpt_scale;
 	int win_radius = (int) (SIFT_ORI_RADIUS * kpt_scale);
-	int win_width = win_radius * 2 + 1;
 	float exp_factor = -1.0f / (2.0f * sigma * sigma);
 
 	float * grdData = grdImage.data;
@@ -1363,7 +1357,7 @@ int match_keypoints(std::list<SiftKeypoint> & kpt_list1,
 }
 
 void  draw_keypoints_to_ppm_file(
-	char* out_filename,
+	const char* out_filename,
 	const ImageObj<unsigned char> & image, 
 	std::list<SiftKeypoint> kpt_list)
 {
@@ -1466,7 +1460,7 @@ int export_kpt_list_to_file(
 int draw_line_to_image(ImageObj<unsigned char> & image, 
 	MatchPair & mp)
 {
-	int w = image.w, h = image.h;
+	int w = image.w;
 	int r1 = mp.r1;
 	int c1 = mp.c1;
 	int r2 = mp.r2;
@@ -1484,7 +1478,8 @@ int draw_line_to_image(ImageObj<unsigned char> & image,
 
 
 // Draw a line on the RGB color image.
-int draw_line_to_rgb_image(unsigned char* & data,
+int draw_line_to_rgb_image(
+    unsigned char* & data,
 	int w, int h,
 	MatchPair & mp)
 {
@@ -1510,7 +1505,7 @@ int draw_line_to_rgb_image(unsigned char* & data,
 
 
 // Draw match lines between matched keypoints between two images.
-int draw_match_lines_to_ppm_file(char * filename,
+int draw_match_lines_to_ppm_file(const char * filename,
 	ImageObj<unsigned char> & image1,
 	ImageObj<unsigned char> & image2,
 	std::list<MatchPair> & match_list)

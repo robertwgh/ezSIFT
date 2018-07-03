@@ -154,21 +154,21 @@ int combine_image(
 // Draw circles to incidate the keypoints.
 // Bars in the circle incidate the orientation of the keypoints.
 void  draw_keypoints_to_ppm_file(
-	char* out_filename,
+	const char* out_filename,
 	const ImageObj<unsigned char> & image, 
 	std::list<SiftKeypoint> kpt_list);
 
 // Draw lines between matched keypoints.
 // The result image is stored in a ppm file.
 int draw_match_lines_to_ppm_file(
-	char * filename,
+	const char * filename,
 	ImageObj<unsigned char> & image1,
 	ImageObj<unsigned char> & image2,
 	std::list<MatchPair> & match_list);
 
 // Draw matched lines on a color RGB image.
 int draw_line_to_rgb_image(
-	unsigned char* & data,
+	const unsigned char* & data,
 	int w, int h,
 	MatchPair & mp);
 
