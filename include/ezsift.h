@@ -1,5 +1,5 @@
 /*	Copyright (c) 2013, Robert Wang, email: robertwgh (at) gmail.com
-	All rights reserved. https://sourceforge.net/p/ezsift
+	All rights reserved. https://github.com/robertwgh/ezSIFT
 
 	Some algorithms used in this code referred to:
 	1. OpenCV: http://opencv.org/
@@ -28,7 +28,9 @@
 #include <list>
 
 #include "image.h"
-#include "img_io.h"
+#include "image_utility.h"
+
+namespace ezsift {
 
 /****************************************
  * Constant parameters
@@ -147,34 +149,34 @@ typedef struct _MatchPair
 // Combine two images for interest points matching.
 // Images are combined horizontally.
 int combine_image(
-	ImageObj<unsigned char> & out_image,
-	const ImageObj<unsigned char> & image1,
-	const ImageObj<unsigned char> & image2);
+	Image<unsigned char> & out_image,
+	const Image<unsigned char> & image1,
+	const Image<unsigned char> & image2);
 
 // Draw circles to incidate the keypoints.
 // Bars in the circle incidate the orientation of the keypoints.
 void  draw_keypoints_to_ppm_file(
-	char* out_filename,
-	const ImageObj<unsigned char> & image, 
+	const char* out_filename,
+	const Image<unsigned char> & image, 
 	std::list<SiftKeypoint> kpt_list);
 
 // Draw lines between matched keypoints.
 // The result image is stored in a ppm file.
 int draw_match_lines_to_ppm_file(
-	char * filename,
-	ImageObj<unsigned char> & image1,
-	ImageObj<unsigned char> & image2,
+	const char * filename,
+	Image<unsigned char> & image1,
+	Image<unsigned char> & image2,
 	std::list<MatchPair> & match_list);
 
 // Draw matched lines on a color RGB image.
 int draw_line_to_rgb_image(
-	unsigned char* & data,
+	const unsigned char* & data,
 	int w, int h,
 	MatchPair & mp);
 
-// Draw matched lines on an ImageObj object.
+// Draw matched lines on an Image object.
 int draw_line_to_image(
-	ImageObj<unsigned char> & image, 
+	Image<unsigned char> & image, 
 	MatchPair & mp);
 
 
@@ -195,8 +197,8 @@ void double_original_image(bool doubleFirstOctave);
 // 1. Use row buf to handle border pixel.
 // 2. hori processing and transpose
 int gaussian_blur(
-	const ImageObj<float> & in_image, 
-	ImageObj<float> & out_image, 
+	const Image<float> & in_image, 
+	Image<float> & out_image, 
 	std::vector<float> coef1d);
 
 // Row filter and then transpose
@@ -207,8 +209,8 @@ int row_filter_transpose(
 	float * coef1d, int gR);
 
 // Build image octaves during the initialization.
-int build_octaves(const ImageObj<unsigned char> &image, 
-	std::vector<ImageObj<unsigned char> > & octaves, 
+int build_octaves(const Image<unsigned char> &image, 
+	std::vector<Image<unsigned char> > & octaves, 
 	int firstOctave, 
 	int nOctaves);
 
@@ -218,29 +220,29 @@ std::vector< std::vector<float> >
 
 // Build Gaussian pyramid.
 int build_gaussian_pyramid(
-	std::vector<ImageObj<unsigned char> > & octaves,
-	std::vector<ImageObj<float> > & gpyr, 
+	std::vector<Image<unsigned char> > & octaves,
+	std::vector<Image<float> > & gpyr, 
 	int nOctaves, 
 	int nGpyrLayers);
 
 // Build DoG pyramid. 
 int build_dog_pyr(
-	std::vector<ImageObj<float> > & gpyr, 
-	std::vector<ImageObj<float> > & dogPyr, 
+	std::vector<Image<float> > & gpyr, 
+	std::vector<Image<float> > & dogPyr, 
 	int nOctaves, 
 	int nDogLayers);
 
 // Build gradient and rotation pyramid.
 int build_grd_rot_pyr(
-	std::vector<ImageObj<float> > & gpyr, 
-	std::vector<ImageObj<float> > & grdPyr, 
-	std::vector<ImageObj<float> > & rotPyr, 
+	std::vector<Image<float> > & gpyr, 
+	std::vector<Image<float> > & grdPyr, 
+	std::vector<Image<float> > & rotPyr, 
 	int nOctaves, 
 	int nLayers);
 
 // Refine local extrema.
 bool refine_local_extrema(
-	std::vector<ImageObj<float> > & dogPyr, 
+	std::vector<Image<float> > & dogPyr, 
 	int nOctaves, 
 	int nDogLayers, 
 	SiftKeypoint & kpt);
@@ -253,7 +255,7 @@ int export_kpt_list_to_file(
 
 // Compute orientation histogram.
 float compute_orientation_hist(
-	const ImageObj<float> & image, 
+	const Image<float> & image, 
 	SiftKeypoint & kpt,
 	float * & hist);
 
@@ -263,17 +265,17 @@ float compute_orientation_hist(
  ***************************************/
 // Detect keypoints.
 int detect_keypoints(
-	std::vector< ImageObj<float> > & dogPyr, 
-	std::vector< ImageObj<float> > & grdPyr, 
-	std::vector< ImageObj<float> > & rotPyr, 
+	std::vector< Image<float> > & dogPyr, 
+	std::vector< Image<float> > & grdPyr, 
+	std::vector< Image<float> > & rotPyr, 
 	int nOctaves, 
 	int nDogLayers, 
 	std::list<SiftKeypoint> & kpt_list);
 
 // Extract descriptor.
 int extract_descriptor(
-	std::vector< ImageObj<float> > & grdPyr, 
-	std::vector< ImageObj<float> > & rotPyr, 
+	std::vector< Image<float> > & grdPyr, 
+	std::vector< Image<float> > & rotPyr, 
 	int nOctaves,
 	int nGpyrLayers,
 	std::list<SiftKeypoint> & kpt_list);
@@ -284,7 +286,7 @@ int extract_descriptor(
  ***************************************/
 // Detect keypoints and extract descriptor.
 int sift_cpu(
-	const ImageObj<unsigned char> &image, 
+	const Image<unsigned char> &image, 
 	std::list<SiftKeypoint> & kpt_list, 
 	bool bExtractDescriptors);
 
@@ -293,5 +295,7 @@ int match_keypoints(
 	std::list<SiftKeypoint> & kpt_list1,
 	std::list<SiftKeypoint> & kpt_list2,
 	std::list<MatchPair> & match_list);
+
+} // end namespace ezsift
 
 #endif

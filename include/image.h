@@ -1,5 +1,5 @@
 /*	Copyright (c) 2013, Robert Wang, email: robertwgh (at) gmail.com
-	All rights reserved. https://sourceforge.net/p/ezsift
+	All rights reserved. https://github.com/robertwgh/ezSIFT
 
 	Description:
 	This image class is a helper class designed for image related operations. 
@@ -9,8 +9,10 @@
 		September, 15, 2013: initial version.
 		July 8th, 2014: fixed arrary access bug in sample_2x(). Thanks Kyungmo Koo.
 */
-#ifndef IMAGE_H
-#define IMAGE_H
+#ifndef EZSIFT_IMAGE_H
+#define EZSIFT_IMAGE_H
+
+#include "image_utility.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,27 +22,26 @@
 #include <ctype.h>
 #include <typeinfo>
 
-#include "img_io.h"
-//#include "common.h"
+namespace ezsift {
 
 template <typename T> 
-class ImageObj
+class Image
 {
 public:
 	int w;
 	int h;
 	T * data;
 
-	ImageObj();
+	Image();
 
-	ImageObj(int _w, int _h);
+	Image(int _w, int _h);
 
 	// Copy construction function
-	ImageObj(const ImageObj<T> & img);
+	Image(const Image<T> & img);
 
-	~ImageObj();
+	~Image();
 
-	ImageObj<T> & operator=(const ImageObj<T> & img);
+	Image<T> & operator=(const Image<T> & img);
 
 	void init(int _w, int _h);
 
@@ -51,21 +52,21 @@ public:
 	int read_pgm(const char * filename);
 	int write_pgm(const char * filename);
 
-	ImageObj<unsigned char> to_uchar() const;
+	Image<unsigned char> to_uchar() const;
 
-	ImageObj<float> to_float() const;
+	Image<float> to_float() const;
 
 	// Upsample the image by 2x, linear interpolation.
-	ImageObj<T> upsample_2x() const;
+	Image<T> upsample_2x() const;
 
 	// Downsample the image by 2x, nearest neighbor interpolation.
-	ImageObj<T> downsample_2x() const;
+	Image<T> downsample_2x() const;
 };
 
 
 // Member function definition
 template <typename T> 
-ImageObj<T>::ImageObj()
+Image<T>::Image()
 {
 	w = 0;
 	h = 0;
@@ -73,7 +74,7 @@ ImageObj<T>::ImageObj()
 }
 
 template <typename T> 
-ImageObj<T>::ImageObj(int _w, int _h)
+Image<T>::Image(int _w, int _h)
 {
 	w = _w;
 	h = _h;
@@ -82,7 +83,7 @@ ImageObj<T>::ImageObj(int _w, int _h)
 
 // Copy construction function
 template <typename T> 
-ImageObj<T>::ImageObj(const ImageObj<T> & img)
+Image<T>::Image(const Image<T> & img)
 {
 	w = img.w;
 	h = img.h;
@@ -91,7 +92,7 @@ ImageObj<T>::ImageObj(const ImageObj<T> & img)
 }
 
 template <typename T> 
-ImageObj<T>::~ImageObj()
+Image<T>::~Image()
 {
 	if (data)
 	{
@@ -101,7 +102,7 @@ ImageObj<T>::~ImageObj()
 }
 
 template <typename T> 
-ImageObj<T> & ImageObj<T>::operator=(const ImageObj<T> & img)
+Image<T> & Image<T>::operator=(const Image<T> & img)
 {
 	init(img.w, img.h);
 	memcpy(data, img.data, img.w * img.h * sizeof(T));
@@ -110,7 +111,7 @@ ImageObj<T> & ImageObj<T>::operator=(const ImageObj<T> & img)
 
 
 template <typename T> 
-void ImageObj<T>::init(int _w, int _h)
+void Image<T>::init(int _w, int _h)
 {
 	w = _w;
 	h = _h;
@@ -119,7 +120,7 @@ void ImageObj<T>::init(int _w, int _h)
 }
 
 template <typename T> 
-void ImageObj<T>::reinit(int _w, int _h)
+void Image<T>::reinit(int _w, int _h)
 {
 	w = _w;
 	h = _h;
@@ -128,7 +129,7 @@ void ImageObj<T>::reinit(int _w, int _h)
 }
 
 template <typename T> 
-void ImageObj<T>::release()
+void Image<T>::release()
 {
 	w = 0;
 	h = 0;
@@ -137,7 +138,7 @@ void ImageObj<T>::release()
 
 
 template <typename T> 
-int ImageObj<T>::read_pgm(const char * filename)
+int Image<T>::read_pgm(const char * filename)
 {
 	FILE* in_file;
 	char ch, type;
@@ -200,7 +201,7 @@ int ImageObj<T>::read_pgm(const char * filename)
 
 
 template <typename T> 
-int ImageObj<T>::write_pgm(const char * filename)
+int Image<T>::write_pgm(const char * filename)
 {
 	FILE* out_file;
 
@@ -219,7 +220,7 @@ int ImageObj<T>::write_pgm(const char * filename)
 	fprintf(out_file, "P5\n");
 	fprintf(out_file, "%d %d\n255\n", w, h);
 
-	ImageObj<unsigned char> tmpImage;
+	Image<unsigned char> tmpImage;
 	tmpImage = this->to_uchar();
 	fwrite(tmpImage.data, sizeof(unsigned char), w * h, out_file);
 
@@ -229,9 +230,9 @@ int ImageObj<T>::write_pgm(const char * filename)
 
 
 template <typename T> 
-ImageObj<unsigned char> ImageObj<T>::to_uchar() const
+Image<unsigned char> Image<T>::to_uchar() const
 {
-	ImageObj<unsigned char> dstImage(w, h);
+	Image<unsigned char> dstImage(w, h);
 
 	for (int r = 0; r < h; r ++)
 	{
@@ -246,9 +247,9 @@ ImageObj<unsigned char> ImageObj<T>::to_uchar() const
 }
 
 template <typename T> 
-ImageObj<float> ImageObj<T>::to_float() const
+Image<float> Image<T>::to_float() const
 {
-	ImageObj<float> dstImage(w, h);
+	Image<float> dstImage(w, h);
 
 	for (int i = 0; i < h; i ++)
 	{
@@ -262,13 +263,13 @@ ImageObj<float> ImageObj<T>::to_float() const
 
 // Upsample the image by 2x, linear interpolation.
 template <typename T> 
-ImageObj<T> ImageObj<T>::upsample_2x() const
+Image<T> Image<T>::upsample_2x() const
 {
 	float scale = 2.0f;
 
 	int srcW = w, srcH = h;
 	int dstW = srcW << 1, dstH = srcH << 1;
-	ImageObj<T> out_image(dstW, dstH);
+	Image<T> out_image(dstW, dstH);
 
 	T * srcData = data;
 	T * dstData = out_image.data;
@@ -296,11 +297,11 @@ ImageObj<T> ImageObj<T>::upsample_2x() const
 
 // Downsample the image by 2x, nearest neighbor interpolation.
 template <typename T> 
-ImageObj<T> ImageObj<T>::downsample_2x() const
+Image<T> Image<T>::downsample_2x() const
 {
 	int srcW = w, srcH = h;
 	int dstW = srcW >> 1, dstH = srcH >> 1;
-	ImageObj<T> out_image(dstW, dstH);
+	Image<T> out_image(dstW, dstH);
 
 	T * srcData = data;
 	T * dstData = out_image.data;
@@ -316,5 +317,7 @@ ImageObj<T> ImageObj<T>::downsample_2x() const
 	}
 	return out_image;
 }
+
+} // end namespace ezsift
 
 #endif

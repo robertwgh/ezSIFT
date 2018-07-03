@@ -23,8 +23,26 @@ I also provide two examples showing how to use this library:
 * `examples/image_match.cpp`: detect keypoints and extract features from two images and perform feature matching. 
 
 ### How to build
-#### For Visual Studio 2010/2012
-1. Go to `build/vs2010` or `build/vs2012`, open `ezsift.sl`n. 
+#### For Mac OS
+Follow the following instructions:
+```Bash
+mkdir build
+cd build
+cmake ..
+make
+```
+Then you can find the built binary under `build/bin` directory.
+
+Or, you can use the following instruction to generate Xcode project:
+```Bash
+mkdir build
+cd build
+cmake .. -GXcode
+```
+Then, open `ezsift.xcodeproj` project to build.
+
+#### For Visual Studio 2010/2012 (currently VS project is broken, I will fix them soon.)
+1. Go to `build/vs2010` or `build/vs2012`, open `ezsift.sln`. 
 2. Build solution. 
 3. You will find executable files under `build/vs2010/bin` or `build/vs2012/bin`.
 
@@ -33,6 +51,7 @@ I also provide two examples showing how to use this library:
 2. Go to `build/android`.
 3. run `./build.sh`
 4. You will find the binaries under `build/android/bin/`.
+5. Connect an Android device to your computer using ADB. Use `install_and_run.sh` to install the binaries and run it on the devices.
 
 ### License
 
