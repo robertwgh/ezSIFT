@@ -1,0 +1,46 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/examples/feature_extract/feature_extract.cpp
+ezsift.h
+/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/examples/feature_extract/ezsift.h
+iostream
+-
+list
+-
+
+/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/platforms/desktop/../../include/ezsift.h
+list
+-
+vector
+-
+image.h
+/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/platforms/desktop/../../include/image.h
+image_utility.h
+/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/platforms/desktop/../../include/image_utility.h
+
+/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/platforms/desktop/../../include/image.h
+image_utility.h
+/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/platforms/desktop/../../include/image_utility.h
+assert.h
+-
+ctype.h
+-
+math.h
+-
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+typeinfo
+-
+
+/Users/guohui.wang/Snapchat/Dev/myrepo/ezsift/platforms/desktop/../../include/image_utility.h
+

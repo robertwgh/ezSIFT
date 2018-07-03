@@ -15,7 +15,7 @@ foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${CMAKE_ARCHIVE_OUTPUT_DIRECTORY})
 endforeach()
 
-set(EZSIFT_ROOT ${PROJECT_SOURCE_DIR})
+set(EZSIFT_ROOT ${PROJECT_SOURCE_DIR}/../../)
 set(EZSIFT_INCLUDE_DIR ${EZSIFT_ROOT}/include)
 set(EZSIFT_SRC_DIR ${EZSIFT_ROOT}/src)
 
@@ -33,5 +33,5 @@ include_directories(
 target_include_directories(${EZSIFT} PUBLIC ${EZSIFT_SRC_DIR})
 
 if(EZSIFT_BUILD_EXAMPLES)
-  add_subdirectory(examples)
+  add_subdirectory(${EZSIFT_ROOT}/examples ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/examples/)
 endif()
