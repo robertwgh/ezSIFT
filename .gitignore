@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+project.xcworkspace/
+xcuserdata/
+*~
+.history
+xcshareddata/

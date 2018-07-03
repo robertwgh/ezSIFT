@@ -92,7 +92,7 @@ int gaussian_blur(const Image<float> &in_image, Image<float> &out_image,
 {
     int w = in_image.w;
     int h = in_image.h;
-    int gR = coef1d.size() / 2;
+    int gR = static_cast<int>(coef1d.size()) / 2;
 
     Image<float> img_t(h, w);
     row_filter_transpose(in_image.data, img_t.data, w, h, &coef1d[0], gR);
@@ -725,23 +725,23 @@ bool refine_local_extrema(std::vector<Image<float>> &dogPyr, int nOctaves,
 {
     int nGpyrLayers = nDogLayers + 1;
 
-    int w, h;
-    int layer_idx;
+    int w = 0, h = 0;
+    int layer_idx = 0;
     int octave = kpt.octave;
     int layer = kpt.layer;
     int r = (int)kpt.ri;
     int c = (int)kpt.ci;
 
-    float *currData;
-    float *lowData;
-    float *highData;
+    float *currData = nullptr;
+    float *lowData = nullptr;
+    float *highData = nullptr;
 
     int xs_i = 0, xr_i = 0, xc_i = 0;
-    float tmp_r, tmp_c, tmp_layer;
+    float tmp_r = 0.0f, tmp_c = 0.0f, tmp_layer = 0.0f;
     float xr = 0.0f, xc = 0.0f, xs = 0.0f;
     float x_hat[3] = {xc, xr, xs};
-    float dx, dy, ds;
-    float dxx, dyy, dss, dxs, dys, dxy;
+    float dx = 0.0f, dy = 0.0f, ds = 0.0f;
+    float dxx = 0.0f, dyy = 0.0f, dss = 0.0f, dxs = 0.0f, dys = 0.0f, dxy = 0.0f;
 
     tmp_r = (float)r;
     tmp_c = (float)c;
@@ -1294,7 +1294,7 @@ int match_keypoints(std::list<SiftKeypoint> &kpt_list1,
         float score2 = (std::numeric_limits<float>::max)(); // 2nd highest score
 
         // Position of the matched feature.
-        int r2, c2;
+        int r2 = 0, c2 = 0;
         for (kpt2 = kpt_list2.begin(); kpt2 != kpt_list2.end(); kpt2++) {
             float score = 0;
             float *descr2 = kpt2->descriptors;
@@ -1500,8 +1500,10 @@ int draw_match_lines_to_ppm_file(const char *filename,
     std::list<MatchPair>::iterator p;
     for (p = match_list.begin(); p != match_list.end(); p++) {
         MatchPair mp;
-        mp.r1 = p->r1, mp.c1 = p->c1;
-        mp.r2 = p->r2, mp.c2 = p->c2 + image1.w;
+        mp.r1 = p->r1;
+        mp.c1 = p->c1;
+        mp.r2 = p->r2;
+        mp.c2 = p->c2 + image1.w;
         draw_line_to_rgb_image(dstData, w, h, mp);
     }
 
