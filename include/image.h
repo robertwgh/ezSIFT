@@ -1,5 +1,5 @@
 /*	Copyright (c) 2013, Robert Wang, email: robertwgh (at) gmail.com
-	All rights reserved. https://sourceforge.net/p/ezsift
+	All rights reserved. https://github.com/robertwgh/ezSIFT
 
 	Description:
 	This image class is a helper class designed for image related operations. 

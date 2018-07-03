@@ -1,12 +1,12 @@
 /*	Copyright (c) 2013, Robert Wang, email: robertwgh (at) gmail.com
-	All rights reserved. https://sourceforge.net/p/ezsift
+	All rights reserved. https://github.com/robertwgh/ezSIFT
 
 	Revision history:
 		September, 15, 2013: initial version.
 */
 
-#ifndef _IMG_IO_H_
-#define _IMG_IO_H_
+#ifndef _IMAGE_UTILITY_H_
+#define _IMAGE_UTILITY_H_
 
 typedef struct {
   int w;
@@ -83,4 +83,4 @@ inline float get_pixel_f(
 	return val;
 }
 
-#endif//_IMG_IO_H_
+#endif//_IMAGE_UTILITY_H_
