@@ -741,7 +741,8 @@ bool refine_local_extrema(std::vector<Image<float>> &dogPyr, int nOctaves,
     float xr = 0.0f, xc = 0.0f, xs = 0.0f;
     float x_hat[3] = {xc, xr, xs};
     float dx = 0.0f, dy = 0.0f, ds = 0.0f;
-    float dxx = 0.0f, dyy = 0.0f, dss = 0.0f, dxs = 0.0f, dys = 0.0f, dxy = 0.0f;
+    float dxx = 0.0f, dyy = 0.0f, dss = 0.0f, dxs = 0.0f, dys = 0.0f,
+          dxy = 0.0f;
 
     tmp_r = (float)r;
     tmp_c = (float)c;
