@@ -1440,7 +1440,7 @@ int export_kpt_list_to_file(
 		return -1;
 	}
 
-	fprintf(fp, "%d\t%d\n", kpt_list.size(), 128);
+	fprintf(fp, "%u\t%d\n", static_cast<unsigned int>(kpt_list.size()), 128);
 
 	std::list<SiftKeypoint>::iterator it;
 	for (it = kpt_list.begin(); it != kpt_list.end(); it ++)
