@@ -36,7 +36,7 @@
 #include "vvector.h"
 #include "common.h"
 
-#include "img_io.h"
+#include "image_utility.h"
 #include "image.h"
 #include "ezsift.h"
 

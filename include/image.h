@@ -20,8 +20,7 @@
 #include <ctype.h>
 #include <typeinfo>
 
-#include "img_io.h"
-//#include "common.h"
+#include "image_utility.h"
 
 template <typename T> 
 class ImageObj

@@ -28,7 +28,7 @@
 #include <list>
 
 #include "image.h"
-#include "img_io.h"
+#include "image_utility.h"
 
 /****************************************
  * Constant parameters

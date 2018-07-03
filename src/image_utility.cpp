@@ -8,6 +8,7 @@
 		September, 15, 2013: initial version.
 */
 
+#include "image_utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,8 +16,6 @@
 #include <math.h>
 #include <string.h>
 #include <ctype.h>
-
-#include "img_io.h"
 
 int read_pgm(const char * filename, unsigned char * & data, int & w, int & h)
 {
