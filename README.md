@@ -1,4 +1,4 @@
-## ezSIFT: An easy-to-use stanalone SIFT library. [![License][license-img]][license-url]
+## ezSIFT: An easy-to-use stanalone SIFT library [![License][license-img]][license-url]
 * Original URL: https://sourceforge.net/projects/ezsift
 * github URL: https://github.com/robertwgh/ezSIFT
 
