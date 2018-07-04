@@ -1,1 +1,3 @@
-brew install --with-toolchain llvm
+brew update
+brew upgrade
+brew install --with-toolchain llvm5
