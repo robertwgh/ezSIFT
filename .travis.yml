@@ -1,7 +1,6 @@
 sudo: false
 os:
   - linux
-  - osx
 language: cpp
 compiler:
   - clang
