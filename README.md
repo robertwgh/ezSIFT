@@ -67,5 +67,5 @@ Then, open `ezsift.xcodeproj` project to build.
     limitations under the License.
 
 
-[license-url]: https://github.com/rsp/travis-hello-modern-cpp/blob/master/LICENSE.md
-[license-img]: https://img.shields.io/github/license/rsp/travis-hello-modern-cpp.svg
+[license-url]: https://github.com/robertwgh/ezSIFT/blob/travis-ci/LICENSE
+[license-img]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
