@@ -1,11 +1,14 @@
 sudo: false
+os:
+  - linux
+  - osx
 language: cpp
 compiler:
   - clang
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+    # - ubuntu-toolchain-r-test
     - llvm-toolchain-trusty-5.0
     packages:
     - clang-5.0
