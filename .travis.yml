@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 os:
   - linux
   - osx
@@ -13,9 +13,10 @@ compiler:
 #     packages:
 #     - clang-5.0
 install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sh scripts/install_clang5_macos.sh; fi
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then sh scripts/install_clang5_linux.sh; fi
-  - "[ $CXX = clang++ ] && export CXX=clang++-5.0 || true"
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then "[ $CXX = clang++ ] && export CXX=clang++-5.0 || true"; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then sh scripts/install_clang5_macos.sh; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then "[ $CXX = clang++ ] && export CXX=clang++ || true"; fi
 script:
   - sh ./scripts/ci_build_desktop.sh
   - sh ./scripts/ci_test_desktop.sh
