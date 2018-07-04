@@ -15,7 +15,8 @@
 #include <cmath>
 #include <cstdio>
 #include <ctype.h>
-#include <string>
+#include <cstring>
+#include <limits>
 
 namespace ezsift {
 
