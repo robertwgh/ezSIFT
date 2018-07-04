@@ -1,8 +1,9 @@
-## ezSIFT: An easy-to-use stanalone SIFT library [![License][license-img]][license-url]
+## ezSIFT: An easy-to-use stanalone SIFT library 
+
+[![License][license-img]][license-url] [![Build Status](https://travis-ci.com/robertwgh/ezSIFT.svg?branch=master)](https://travis-ci.com/robertwgh/ezSIFT)
+
 * Original URL: https://sourceforge.net/projects/ezsift
 * github URL: https://github.com/robertwgh/ezSIFT
-
-[![Build Status](https://travis-ci.com/robertwgh/ezSIFT.svg?branch=master)](https://travis-ci.com/robertwgh/ezSIFT)
 
 The SIFT (scale-invariant feature transform) algorithm is considered to be one of the most robust local feature detector and description methods. Most of the open-source SIFT implementations rely on some 3rd-party libraries. Some of them even rely on a few different large libraries. These dependencies make the installation, compilation and usage not easy.
 
