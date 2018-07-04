@@ -1,4 +1,7 @@
-## ezSIFT: An easy-to-use stanalone SIFT library.
+## ezSIFT: An easy-to-use stanalone SIFT library 
+
+[![License][license-img]][license-url] [![Build Status](https://travis-ci.com/robertwgh/ezSIFT.svg?branch=master)](https://travis-ci.com/robertwgh/ezSIFT)
+
 * Original URL: https://sourceforge.net/projects/ezsift
 * github URL: https://github.com/robertwgh/ezSIFT
 
@@ -65,3 +68,7 @@ Then, open `ezsift.xcodeproj` project to build.
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
+[license-url]: https://github.com/robertwgh/ezSIFT/blob/travis-ci/LICENSE
+[license-img]: https://img.shields.io/badge/License-Apache%202.0-blue.svg

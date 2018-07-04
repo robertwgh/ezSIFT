@@ -15,7 +15,9 @@
 #include <cmath>
 #include <cstdio>
 #include <ctype.h>
-#include <string>
+#include <cstring>
+#include <limits>
+#include <cstdlib>
 
 namespace ezsift {
 
@@ -75,7 +77,7 @@ void write_pgm(const char *filename, unsigned char *data, int w, int h)
     out_file = fopen(filename, "wb");
     if (!out_file) {
         fprintf(stderr, "Fail to open file: %s\n", filename);
-        exit(1);
+        return;
     }
 
     fprintf(out_file, "P5\n");

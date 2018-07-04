@@ -1,0 +1,19 @@
+sudo: false
+os:
+  - linux
+language: cpp
+compiler:
+  - clang
+addons:
+  apt:
+    sources:
+    - llvm-toolchain-trusty-5.0
+    packages:
+    - clang-5.0
+install:
+- "[ $CXX = clang++ ] && export CXX=clang++-5.0 || true"
+script:
+  - sh ./scripts/ci_build_desktop.sh
+  - sh ./scripts/ci_test_desktop.sh
+
+

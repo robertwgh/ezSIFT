@@ -35,6 +35,8 @@
 #include <cstdio>
 #include <iostream>
 #include <list>
+#include <cstdlib>
+#include <limits>
 
 namespace ezsift {
 
