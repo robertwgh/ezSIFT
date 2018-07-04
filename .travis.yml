@@ -5,13 +5,17 @@ compiler:
 
 android:
   components:
-    - tools
-    - platform-tools
-    - extra-google-m2repository
-    - extra-android-m2repository
+    # - tools
+    # - platform-tools
+    # - extra-google-m2repository
+    # - extra-android-m2repository
 addons:
   apt_packages:
-    - pandoc
+  apt:
+    sources:
+      - llvm-toolchain-trusty-5.0
+    packages:
+      - clang-5.0
 before_install:
   - sudo apt-get install ant
 install:
