@@ -2,14 +2,11 @@
 
 [![License][license-img]][license-url] [![Build Status](https://travis-ci.com/robertwgh/ezSIFT.svg?branch=master)](https://travis-ci.com/robertwgh/ezSIFT)
 
-* Original URL: https://sourceforge.net/projects/ezsift
-* github URL: https://github.com/robertwgh/ezSIFT
-
 The SIFT (scale-invariant feature transform) algorithm is considered to be one of the most robust local feature detector and description methods. Most of the open-source SIFT implementations rely on some 3rd-party libraries. Some of them even rely on a few different large libraries. These dependencies make the installation, compilation and usage not easy.
 
 The ezSIFT library provides a standalone and lightweight SIFT implementation written in C/C++. The ezSIFT is self-contained, and does not require any other libraries. So it is easy to use and modify. Besides, the implementation of the ezSIFT is straightforward and easy to read. 
 
-For this project, C/C++ source code, Visual Studio 2010、2012 project files, and Android NDK project files are provided.
+The ezSIFT project was original hosted at SourceForge ([link](https://sourceforge.net/projects/ezsift)). We recently migrated it to github to better maintain the code development. 
 
 ### Documentation
 Please read [ezSIFT Wiki page](https://github.com/robertwgh/ezSIFT/wiki) for details.
@@ -21,7 +18,7 @@ I also provide two examples showing how to use this library:
 * `examples/image_match`: detect keypoints and extract features from two images and perform feature matching. 
 
 ### How to build
-#### For Mac OS
+#### Mac OS
 Follow the following instructions:
 ```Bash
 cd platforms/desktop/
@@ -46,12 +43,12 @@ cmake .. -GXcode
 ```
 Then, open `ezsift.xcodeproj` project to build.
 
-#### For Android NDK native mode
-1. Please install Android NDK package, and add NDK root folder to your system environment PATH. 
+#### Android NDK native
+1. Please install the latest Android NDK package, and add NDK root folder to your system environment PATH to expose `ndk-build` tool to the shell. 
 2. Go to `platforms/android`.
 3. run `./build.sh`
-4. You will find the binaries under `build/android/bin/`.
-5. Connect an Android device to your computer using ADB. Use `install_and_run.sh` to install the binaries and run it on the devices.
+4. After build is finished, you will find the binaries under `build/android/bin/`.
+5. Connect an Android device to your computer using ADB. Use `install_and_run.sh` to install the binaries and run them on the device.
 
 ### License
 
@@ -70,5 +67,5 @@ Then, open `ezsift.xcodeproj` project to build.
     limitations under the License.
 
 
-[license-url]: https://github.com/robertwgh/ezSIFT/blob/travis-ci/LICENSE
+[license-url]: https://github.com/robertwgh/ezSIFT/blob/master/LICENSE
 [license-img]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
