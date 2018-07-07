@@ -33,6 +33,9 @@ namespace ezsift {
 #define PI_3_4 2.356194490192345f
 #define SQRT2 1.414213562373095f
 
+#define MAX(a, b) (a >= b ? a : b)
+#define MIN(a, b) (a <= b ? a : b)
+
 // *** Helper functions ***
 inline float my_log2(float n)
 {
