@@ -14,10 +14,10 @@
 #include <cassert>
 #include <cmath>
 #include <cstdio>
-#include <ctype.h>
-#include <cstring>
-#include <limits>
 #include <cstdlib>
+#include <cstring>
+#include <ctype.h>
+#include <limits>
 
 namespace ezsift {
 
