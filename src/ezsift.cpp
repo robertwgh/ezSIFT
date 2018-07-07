@@ -33,10 +33,10 @@
 
 #include <cmath>
 #include <cstdio>
-#include <iostream>
-#include <list>
 #include <cstdlib>
+#include <iostream>
 #include <limits>
+#include <list>
 
 namespace ezsift {
 
@@ -968,10 +968,10 @@ int extract_descriptor(std::vector<Image<float>> &grdPyr,
 
         // Boundary of sample region.
         int r, c;
-        int left = (std::max)(-win_size, 1 - kptc_i);
-        int right = (std::min)(win_size, w - 2 - kptc_i);
-        int top = (std::max)(-win_size, 1 - kptr_i);
-        int bottom = (std::min)(win_size, h - 2 - kptr_i);
+        int left = MAX(-win_size, 1 - kptc_i);
+        int right = MIN(win_size, w - 2 - kptc_i);
+        int top = MAX(-win_size, 1 - kptr_i);
+        int bottom = MIN(win_size, h - 2 - kptr_i);
 
         for (int i = top; i <= bottom; i++) // rows
         {
@@ -1237,7 +1237,7 @@ int combine_image(Image<unsigned char> &out_image,
     int w2 = image2.w;
     int h2 = image2.h;
     int dstW = w1 + w2;
-    int dstH = (std::max)(h1, h2);
+    int dstH = MAX(h1, h2);
 
     out_image.init(dstW, dstH);
 
