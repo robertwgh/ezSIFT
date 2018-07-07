@@ -50,7 +50,7 @@ mkdir build
 cd build
 cmake ..
 ```
-Upon finishing the above instructions, Visual Studio solution `ezsift.sln` will be generated. Open the solution files and build all projects, the static lib and examples will be built. 
+Upon finishing the above instructions, A Visual Studio solution `ezsift.sln` will be generated. Open the solution file and build all projects, the static lib and examples will be built. 
 
 #### Android NDK native
 1. Please install the latest Android NDK package, and add NDK root folder to your system environment PATH to expose `ndk-build` tool to the shell. 
