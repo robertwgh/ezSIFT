@@ -58,7 +58,8 @@ void double_original_image(bool doubleFirstOctave)
 
 // Compute octaves to build Gaussian Pyramid.
 int build_octaves(const Image<unsigned char> &image,
-                  std::vector<Image<unsigned char>> &octaves, int firstOctave,
+                  std::vector<Image<unsigned char>> &octaves,
+                  int firstOctave,
                   int nOctaves)
 {
     int w = image.w;
@@ -86,7 +87,8 @@ int build_octaves(const Image<unsigned char> &image,
 }
 
 // Improved Gaussian Blurring Function
-int gaussian_blur(const Image<float> &in_image, Image<float> &out_image,
+int gaussian_blur(const Image<float> &in_image,
+                  Image<float> &out_image,
                   std::vector<float> coef1d)
 {
     int w = in_image.w;
@@ -226,7 +228,8 @@ std::vector<std::vector<float>> compute_gaussian_coefs(int nOctaves,
 
 // Build difference of Gaussian pyramids.
 int build_dog_pyr(std::vector<Image<float>> &gpyr,
-                  std::vector<Image<float>> &dogPyr, int nOctaves,
+                  std::vector<Image<float>> &dogPyr,
+                  int nOctaves,
                   int nDogLayers)
 {
     int nGpyrLayers = nDogLayers + 1;
@@ -261,7 +264,8 @@ int build_dog_pyr(std::vector<Image<float>> &gpyr,
 // Build gradient pyramids.
 int build_grd_rot_pyr(std::vector<Image<float>> &gpyr,
                       std::vector<Image<float>> &grdPyr,
-                      std::vector<Image<float>> &rotPyr, int nOctaves,
+                      std::vector<Image<float>> &rotPyr,
+                      int nOctaves,
                       int nLayers)
 {
     int nGpyrLayers = nLayers + 3;
@@ -561,7 +565,8 @@ float compute_orientation_hist_with_gradient(const Image<float> &grdImage,
 // Keypoint detection.
 int detect_keypoints(std::vector<Image<float>> &dogPyr,
                      std::vector<Image<float>> &grdPyr,
-                     std::vector<Image<float>> &rotPyr, int nOctaves,
+                     std::vector<Image<float>> &rotPyr,
+                     int nOctaves,
                      int nDogLayers, std::list<SiftKeypoint> &kpt_list)
 {
     float *currData;
@@ -887,7 +892,8 @@ bool refine_local_extrema(std::vector<Image<float>> &dogPyr, int nOctaves,
 // Extract descriptor
 // 1. Unroll the tri-linear part.
 int extract_descriptor(std::vector<Image<float>> &grdPyr,
-                       std::vector<Image<float>> &rotPyr, int nOctaves,
+                       std::vector<Image<float>> &rotPyr,
+                       int nOctaves,
                        int nGpyrLayers, std::list<SiftKeypoint> &kpt_list)
 {
     // Number of subregions, default 4x4 subregions.
@@ -1153,7 +1159,8 @@ int extract_descriptor(std::vector<Image<float>> &grdPyr,
 }
 
 int sift_cpu(const Image<unsigned char> &image,
-             std::list<SiftKeypoint> &kpt_list, bool bExtractDescriptors)
+             std::list<SiftKeypoint> &kpt_list,
+             bool bExtractDescriptors)
 {
     // Index of the first octave.
     int firstOctave = (SIFT_IMG_DBL) ? -1 : 0;
