@@ -11,13 +11,15 @@
 
 #include <math.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 namespace ezsift {
 
-// *** Optimization options ***
+// Optimization options
 #define USE_FAST_FUNC 1
 
-// *** Dump functions to get intermediate results ***
+// Some debug options
+// Dump functions to get intermediate results
 #define DUMP_OCTAVE_IMAGE 0
 #define DUMP_GAUSSIAN_PYRAMID_IMAGE 0
 #define DUMP_DOG_IMAGE 0
@@ -25,7 +27,6 @@ namespace ezsift {
 // Print out matched keypoint pairs in match_keypoints() function.
 #define PRINT_MATCH_KEYPOINTS 1
 
-// *** Macro definition ***
 // Macro definition
 #define PI 3.141592653589793f
 #define _2PI 6.283185307179586f
@@ -36,7 +37,7 @@ namespace ezsift {
 #define MAX(a, b) (a >= b ? a : b)
 #define MIN(a, b) (a <= b ? a : b)
 
-// *** Helper functions ***
+// Helper functions
 inline float my_log2(float n)
 {
     // Visual C++ does not have log2...
@@ -66,7 +67,7 @@ void inline flogd(FILE *fp, const char *format, ...)
     return;
 }
 
-// *** Fast math functions ***
+// Fast math functions
 // Fast Atan2() function
 #define EPSILON_F 1.19209290E-07F
 inline float fast_atan2_f(float y, float x)
@@ -78,11 +79,11 @@ inline float fast_atan2_f(float y, float x)
 
     if (x >= 0) {
         r = (x - abs_y) / (x + abs_y);
-        angle = PI_4; //
+        angle = PI_4;
     }
     else {
         r = (x + abs_y) / (abs_y - x);
-        angle = PI_3_4; //
+        angle = PI_3_4;
     }
     angle += (c3 * r * r - c1) * r;
 
@@ -92,7 +93,7 @@ inline float fast_atan2_f(float y, float x)
 // Fast Sqrt() function
 inline float fast_resqrt_f(float x)
 {
-    /* 32-bit version */
+    // 32-bit version
     union {
         float x;
         int i;
@@ -100,13 +101,13 @@ inline float fast_resqrt_f(float x)
 
     float xhalf = (float)0.5 * x;
 
-    /* convert floating point value in RAW integer */
+    // convert floating point value in RAW integer
     u.x = x;
 
-    /* gives initial guess y0 */
+    // gives initial guess y0
     u.i = 0x5f3759df - (u.i >> 1);
 
-    /* two Newton steps */
+    // two Newton steps
     u.x = u.x * ((float)1.5 - xhalf * u.x * u.x);
     u.x = u.x * ((float)1.5 - xhalf * u.x * u.x);
     return u.x;

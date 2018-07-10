@@ -25,11 +25,9 @@
 #ifndef EZSIFT_H
 #define EZSIFT_H
 
+#include "image.h"
 #include <list>
 #include <vector>
-
-#include "image.h"
-#include "image_utility.h"
 
 namespace ezsift {
 
@@ -119,7 +117,7 @@ static const int SIFT_FIXPT_SCALE = 1;
  * Definitions
  ***************************************/
 #define DEGREE_OF_DESCRIPTORS (128)
-typedef struct _SiftKeypoint {
+struct SiftKeypoint {
     int octave;   // octave number
     int layer;    // layer number
     float rlayer; // real number of layer number
@@ -136,41 +134,15 @@ typedef struct _SiftKeypoint {
     float mag; // magnitude
 
     float descriptors[DEGREE_OF_DESCRIPTORS];
-} SiftKeypoint;
+};
 
 // Match pair structure. Use for interest point matching.
-typedef struct _MatchPair {
+struct MatchPair {
     int r1;
     int c1;
     int r2;
     int c2;
-} MatchPair;
-
-// Combine two images for interest points matching.
-// Images are combined horizontally.
-int combine_image(Image<unsigned char> &out_image,
-                  const Image<unsigned char> &image1,
-                  const Image<unsigned char> &image2);
-
-// Draw circles to incidate the keypoints.
-// Bars in the circle incidate the orientation of the keypoints.
-void draw_keypoints_to_ppm_file(const char *out_filename,
-                                const Image<unsigned char> &image,
-                                std::list<SiftKeypoint> kpt_list);
-
-// Draw lines between matched keypoints.
-// The result image is stored in a ppm file.
-int draw_match_lines_to_ppm_file(const char *filename,
-                                 Image<unsigned char> &image1,
-                                 Image<unsigned char> &image2,
-                                 std::list<MatchPair> &match_list);
-
-// Draw matched lines on a color RGB image.
-int draw_line_to_rgb_image(const unsigned char *&data, int w, int h,
-                           MatchPair &mp);
-
-// Draw matched lines on an Image object.
-int draw_line_to_image(Image<unsigned char> &image, MatchPair &mp);
+};
 
 /****************************************
  *  SIFT Processing Functions

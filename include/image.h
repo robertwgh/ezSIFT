@@ -112,7 +112,6 @@ void Image<T>::init(int _w, int _h)
 {
     w = _w;
     h = _h;
-    // if (data) delete [] data;
     data = new T[w * h];
 }
 
@@ -134,6 +133,7 @@ void Image<T>::release()
     h = 0;
     if (data) {
         delete[] data;
+        data = nullptr;
     }
 }
 
@@ -150,31 +150,31 @@ int Image<T>::read_pgm(const char *filename)
         fprintf(stderr, "ERROR(0): Fail to open file %s\n", filename);
         return -1;
     }
-    /* Determine pgm image type (only type three can be used)*/
+    // Determine pgm image type (only type three can be used)
     ch = getc(in_file);
     if (ch != 'P') {
         printf("ERROR(1): Not valid pgm/ppm file type\n");
         return -1;
     }
     ch = getc(in_file);
-    /* Convert the one digit integer currently represented as a character to
-     * an integer(48 == '0') */
+    // Convert the one digit integer currently represented as a character to
+    // an integer(48 == '0')
     type = ch - 48;
     if (type != 5) {
         printf("ERROR(2): this file type (P%d) is not supported!\n", type);
         return -1;
     }
     while (getc(in_file) != '\n')
-        ;                          /* Skip to end of line*/
-    while (getc(in_file) == '#') { /* Skip comment lines */
+        ;                          // Skip to end of line
+    while (getc(in_file) == '#') { // Skip comment lines
         while (getc(in_file) != '\n')
             ;
     }
-    fseek(in_file, -1, SEEK_CUR); /* Backup one character*/
+    fseek(in_file, -1, SEEK_CUR); // Backup one character
 
     fscanf(in_file, "%d", &w);
     fscanf(in_file, "%d", &h);
-    fscanf(in_file, "%d", &dummy); /* Skipped here */
+    fscanf(in_file, "%d", &dummy); // Skipped here
     while (getc(in_file) != '\n')
         ;
 
