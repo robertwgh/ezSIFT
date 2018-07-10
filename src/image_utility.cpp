@@ -10,6 +10,7 @@
 */
 
 #include "image_utility.h"
+#include "common.h"
 #include "ezsift.h"
 #include "image.h"
 

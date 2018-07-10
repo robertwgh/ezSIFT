@@ -8,7 +8,6 @@
 #ifndef IMAGE_UTILITY_H
 #define IMAGE_UTILITY_H
 
-#include "common.h"
 #include <list>
 
 namespace ezsift {
