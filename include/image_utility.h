@@ -8,7 +8,16 @@
 #ifndef IMAGE_UTILITY_H
 #define IMAGE_UTILITY_H
 
+#include "common.h"
+#include <list>
+
 namespace ezsift {
+
+struct SiftKeypoint;
+struct MatchPair;
+
+template <typename T>
+class Image;
 
 struct ImagePPM {
     int w;
@@ -32,6 +41,32 @@ void rasterCircle(ImagePPM *imgPPM, int r, int c, int radius);
 void draw_red_circle(ImagePPM *imgPPM, int r, int c, int cR);
 void draw_circle(ImagePPM *imgPPM, int r, int c, int cR, float thickness);
 void draw_red_orientation(ImagePPM *imgPPM, int x, int y, float ori, int cR);
+
+// Combine two images for interest points matching.
+// Images are combined horizontally.
+int combine_image(Image<unsigned char> &out_image,
+                  const Image<unsigned char> &image1,
+                  const Image<unsigned char> &image2);
+
+// Draw circles to incidate the keypoints.
+// Bars in the circle incidate the orientation of the keypoints.
+void draw_keypoints_to_ppm_file(const char *out_filename,
+                                const Image<unsigned char> &image,
+                                std::list<SiftKeypoint> kpt_list);
+
+// Draw lines between matched keypoints.
+// The result image is stored in a ppm file.
+int draw_match_lines_to_ppm_file(const char *filename,
+                                 Image<unsigned char> &image1,
+                                 Image<unsigned char> &image2,
+                                 std::list<MatchPair> &match_list);
+
+// Draw matched lines on a color RGB image.
+int draw_line_to_rgb_image(const unsigned char *&data, int w, int h,
+                           MatchPair &mp);
+
+// Draw matched lines on an Image object.
+int draw_line_to_image(Image<unsigned char> &image, MatchPair &mp);
 
 /****************************************
  * Utility functions
