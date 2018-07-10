@@ -24,6 +24,7 @@
 */
 
 #include "ezsift.h"
+#include "common.h"
 #include "image.h"
 #include "timer.h"
 #include "vvector.h"
