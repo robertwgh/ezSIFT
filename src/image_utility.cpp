@@ -68,7 +68,7 @@ int read_pgm(const char *filename, unsigned char *&data, int &w, int &h)
     data = _data;
 
     return 0;
-} // read_pgm()
+}
 
 void write_pgm(const char *filename, unsigned char *data, int w, int h)
 {
@@ -86,7 +86,7 @@ void write_pgm(const char *filename, unsigned char *data, int w, int h)
     fprintf(out_file, "%d %d\n255\n", w, h);
     fwrite(data, sizeof(unsigned char), w * h, out_file);
     fclose(out_file);
-} // write_pgm ()
+}
 
 void write_float_pgm(const char *filename, float *data, int w, int h, int mode)
 {
@@ -126,7 +126,7 @@ void write_float_pgm(const char *filename, float *data, int w, int h, int mode)
     }
     write_pgm(filename, charImg, w, h);
     free(charImg);
-} // write_float_pgm()
+}
 
 void setPixelRed(ImagePPM *img, int r, int c)
 {
@@ -135,7 +135,7 @@ void setPixelRed(ImagePPM *img, int r, int c)
         img->img_g[r * img->w + c] = 0;
         img->img_b[r * img->w + c] = 255;
     }
-} // setPixelRed()
+}
 
 void draw_red_circle(ImagePPM *imgPPM, int r, int c, int cR)
 {
@@ -151,7 +151,7 @@ void draw_red_circle(ImagePPM *imgPPM, int r, int c, int cR)
         if (cR <= cy)
             err += ++cy * 2 + 1; // e_xy+e_y < 0
     } while (cx < 0);
-} // draw_red_circle()
+}
 
 void draw_circle(ImagePPM *imgPPM, int r, int c, int cR, float thickness)
 {
@@ -230,7 +230,7 @@ void draw_red_orientation(ImagePPM *imgPPM, int x, int y, float ori, int cR)
             y += sy;
         } /* e_xy+e_y < 0 */
     }
-} // draw_red_orientation()
+}
 
 void skip_comment(FILE *fp)
 {
@@ -245,7 +245,7 @@ void skip_comment(FILE *fp)
     do {
         c = getc(fp);
     } while (c != '\n' && c != EOF);
-} // skip_comment()
+}
 
 int read_ppm(const char *filename, unsigned char *&data, int &w, int &h)
 {
@@ -376,7 +376,7 @@ int combine_image(Image<unsigned char> &out_image,
 }
 
 // Helper callback function for merge match list.
-bool same_match_pair(MatchPair first, MatchPair second)
+bool same_match_pair(const MatchPair &first, const MatchPair &second)
 {
     if (first.c1 == second.c1 && first.r1 == second.r1 &&
         first.c2 == second.c2 && first.r2 == second.r2)
@@ -514,7 +514,7 @@ void draw_keypoints_to_ppm_file(const char *out_filename,
     delete[] imgPPM.img_g;
     delete[] imgPPM.img_b;
     imgPPM.img_r = imgPPM.img_g = imgPPM.img_b = nullptr;
-} // render()
+}
 
 int export_kpt_list_to_file(const char *filename,
                             std::list<SiftKeypoint> &kpt_list,
